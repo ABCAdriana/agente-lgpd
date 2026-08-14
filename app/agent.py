@@ -142,7 +142,15 @@ Resposta:
 
             resultado = self.llm.invoke(prompt)
 
-            resposta = resultado.content
+            if isinstance(resultado.content, list):
+                resposta = "".join(
+                item.get("text", "")
+                for item in resultado.content
+                if isinstance(item, dict)
+            )
+            else:
+                resposta = str(resultado.content)
+            
 
         except Exception:
 
