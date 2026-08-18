@@ -21,7 +21,7 @@ def responder(mensagem, historico):
 
     try:
 
-        resultado = agente.responder(mensagem)
+        resultado = agente.responder(mensagem, usar_gemini=True)
 
     except Exception as erro:
 
