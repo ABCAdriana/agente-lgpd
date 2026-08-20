@@ -1,92 +1,115 @@
 # 🤖 Agente LGPD
 
-Agente de Inteligência Artificial especializado em perguntas sobre a
-Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018).
+Agente de Inteligência Artificial especializado em perguntas sobre a 
+**Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018)**.
 
-## 🎯 Objetivo
+O projeto utiliza arquitetura **RAG (Retrieval-Augmented Generation)**, 
+permitindo que o modelo Gemini gere respostas baseadas no conteúdo oficial 
+da legislação armazenada em uma base vetorial.
 
-O projeto utiliza arquitetura RAG (Retrieval-Augmented Generation)
-para recuperar informações relevantes da LGPD antes da geração da resposta.
+---
 
-O agente é capaz de:
+# 🎯 Objetivo
 
-- Ler e processar o documento da LGPD em PDF;
-- Dividir o documento em trechos;
-- Criar embeddings;
-- Armazenar os embeddings no ChromaDB;
-- Recuperar os trechos mais relevantes;
-- Utilizar o Gemini para gerar respostas baseadas no contexto;
-- Manter histórico das conversas;
-- Disponibilizar uma interface utilizando Gradio.
+O objetivo do projeto é desenvolver um agente inteligente capaz de responder 
+perguntas relacionadas à LGPD utilizando um documento PDF como fonte de conhecimento.
 
-## 🏗️ Arquitetura
+O agente realiza:
+
+- Leitura e processamento do PDF da LGPD;
+- Divisão do documento em trechos (chunks);
+- Criação de embeddings;
+- Armazenamento em banco vetorial ChromaDB;
+- Recuperação dos trechos relevantes;
+- Construção de contexto;
+- Geração de respostas utilizando Gemini;
+- Interface conversacional utilizando Gradio.
+
+---
+
+# 🏗️ Arquitetura
+
 
 ```text
-PDF da LGPD
-    ↓
+PDF LGPD
+↓
 Leitura e processamento
-    ↓
+↓
 Divisão em chunks
-    ↓
+↓
 Embeddings
-    ↓
+↓
 ChromaDB
-    ↓
-Retriever
-    ↓
+↓
+Busca semântica
+↓
 Contexto relevante
-    ↓
+↓
 Prompt
-    ↓
+↓
 Gemini
-    ↓
+↓
 Resposta ao usuário
+↓
+Gradio
 ```
 
-## 🧠 RAG
+---
 
-Quando o usuário realiza uma pergunta, o sistema:
+# 🧠 Funcionamento do RAG
 
-1. Recebe a pergunta;
-2. Realiza uma busca semântica;
-3. Recupera os trechos mais relevantes da LGPD;
-4. Monta o contexto;
-5. Cria o prompt;
-6. Envia o contexto para o Gemini;
-7. Retorna a resposta ao usuário.
+Quando o usuário realiza uma pergunta:
 
-## 📚 Base de conhecimento
+1. A pergunta é recebida pelo agente;
+2. O sistema transforma a pergunta em embedding;
+3. O ChromaDB realiza uma busca semântica;
+4. Os trechos mais relevantes da LGPD são recuperados;
+5. O contexto é enviado ao Gemini;
+6. O modelo gera a resposta baseada na legislação.
+
+---
+
+# 📚 Base de conhecimento
 
 Documento utilizado:
 
 **Lei nº 13.709/2018 — Lei Geral de Proteção de Dados Pessoais (LGPD)**
 
-Características da base:
+Características:
 
-- 72 chunks;
-- Embeddings com dimensão 384;
-- Modelo: sentence-transformers/all-MiniLM-L6-v2;
-- Coleção ChromaDB: lgpd_conhecimento.
+- Documento em formato PDF;
+- 72 chunks gerados;
+- Embeddings utilizando:
+  `sentence-transformers/all-MiniLM-L6-v2`
+- Dimensão dos embeddings: 384;
+- Banco vetorial:
+  `ChromaDB`
+- Coleção:
+  `lgpd_conhecimento`
 
-O ChromaDB foi configurado para persistência durante o desenvolvimento.
+O ChromaDB possui persistência em armazenamento local.
 
-## 🛠️ Tecnologias utilizadas
+---
+
+# 🛠️ Tecnologias utilizadas
 
 | Tecnologia | Utilização |
 |---|---|
 | Python | Linguagem principal |
-| Google Colab | Desenvolvimento |
-| Gemini | Inteligência artificial generativa |
-| PyPDF | Leitura do PDF |
-| LangChain | Orquestração |
-| Sentence Transformers | Embeddings |
+| Google Colab | Ambiente de desenvolvimento |
+| Gemini API | Modelo de inteligência artificial generativa |
+| LangChain | Orquestração do fluxo RAG |
+| PyPDF | Leitura do documento PDF |
+| Sentence Transformers | Geração dos embeddings |
 | ChromaDB | Banco vetorial |
-| Gradio | Interface |
+| Gradio | Interface do agente |
 | Docker | Empacotamento |
 | GitHub | Versionamento |
-| Oracle Cloud OCI | Deploy |
+| Oracle Cloud OCI | Ambiente de deploy |
 
-## 📁 Estrutura do projeto
+---
+
+# 📁 Estrutura do projeto
 
 ```text
 agente-lgpd/
@@ -100,6 +123,7 @@ agente-lgpd/
 │   └── config.py
 │
 ├── data/
+│ └── Lei13709_Lgpd.pdf
 ├── vectorstore/
 ├── screenshots/
 ├── notebooks/
@@ -110,7 +134,7 @@ agente-lgpd/
 └── README.md
 ```
 
-## ⚙️ Instalação
+# ⚙️ Instalação
 
 Clone o repositório:
 
@@ -125,7 +149,7 @@ Instale as dependências:
 pip install -r requirements.txt
 ```
 
-## 🔐 Configuração da API Gemini
+# 🔐 Configuração da API Gemini
 
 A chave da API não deve ser armazenada no código-fonte.
 
@@ -140,7 +164,7 @@ de segurança disponíveis no ambiente.
 
 Nunca publique a chave no GitHub.
 
-## ▶️ Execução
+# ▶️ Execução
 
 Após configurar as dependências e a variável da API:
 
@@ -148,37 +172,49 @@ Após configurar as dependências e a variável da API:
 python app/main.py
 ```
 
-## 💬 Exemplos de perguntas
+💬 Exemplos de perguntas e respostas
+Pergunta:
 
-- O que é dado pessoal segundo a LGPD?
-- O que é dado pessoal sensível?
-- Quem é considerado titular dos dados?
-- O que é tratamento de dados pessoais?
-- Quem é o controlador?
-- Quem é o operador?
-- Quais são os direitos do titular?
+1-O que é dado pessoal segundo a LGPD?
 
-## 🧪 Validação
+Resposta gerada:
 
-Durante o desenvolvimento, a recuperação do contexto foi validada
-sem realizar chamadas adicionais ao Gemini.
+Informação relacionada a pessoa natural identificada ou identificável.
 
-Exemplo:
+Pergunta:
 
-> O que é dado pessoal segundo a LGPD?
+2-O que é dado pessoal sensível?
 
-O sistema conseguiu recuperar o contexto da base LGPD e preparar
-o prompt para o modelo.
+O agente consulta a base da LGPD e apresenta a definição conforme o Art. 5º da Lei nº 13.709/2018.
 
-Foram validados:
+Pergunta:
 
-- ChromaDB;
-- Embeddings;
-- Busca semântica;
-- Recuperação de contexto;
-- Montagem do prompt.
+3-Quem é considerado titular dos dados?
 
-## 💬 Histórico
+O agente recupera o conceito de titular presente na legislação.
+
+# 🧪 Validação
+
+Foram realizados testes validando:
+
+Leitura do PDF;
+Processamento do documento;
+Criação dos chunks;
+Geração dos embeddings;
+Persistência do ChromaDB;
+Recuperação de contexto;
+Integração com Gemini;
+Interface Gradio.
+
+Teste funcional realizado:
+
+Pergunta:
+O que é dado pessoal segundo a LGPD?
+
+Resposta:
+Informação relacionada a pessoa natural identificada ou identificável.
+
+# 💬 Histórico
 
 O projeto possui uma camada de memória para armazenar perguntas,
 respostas e histórico da conversa.
@@ -189,18 +225,18 @@ Arquivo responsável:
 app/memory.py
 ```
 
-## 🛡️ Segurança
+# 🛡️ Segurança
 
-Informações sensíveis não são armazenadas diretamente no código.
+Nenhuma informação sensível é armazenada no código-fonte.
 
 O projeto utiliza:
 
 - Variáveis de ambiente;
-- .gitignore;
+- Proteção da API Key;
+- Arquio.gitignore;
 - Separação das configurações;
-- Proteção da chave da API.
 
-## 🐳 Docker
+# 🐳 Docker
 
 O projeto possui um Dockerfile para empacotamento da aplicação.
 
@@ -216,14 +252,14 @@ Execução:
 docker run -p 7860:7860 agente-lgpd
 ```
 
-## ☁️ Deploy OCI
+# ☁️ Deploy OCI
 
 O objetivo final é disponibilizar a aplicação na Oracle Cloud
 Infrastructure (OCI).
 
 A entrega deverá conter evidências da aplicação funcionando na nuvem.
 
-## ⚠️ Observação sobre o Gemini
+# ⚠️ Observação sobre o Gemini
 
 Durante o desenvolvimento, os testes de geração foram limitados
 para preservar a quota disponível da API.
@@ -231,7 +267,7 @@ para preservar a quota disponível da API.
 A recuperação do contexto e a preparação do RAG foram validadas
 localmente antes do teste final com o Gemini.
 
-## 👩‍💻 Projeto
+# 👩‍💻 Projeto
 
 Agente de Inteligência Artificial baseado no conteúdo da
-Lei Geral de Proteção de Dados Pessoais.
+Lei Geral de Proteção de Dados Pessoais (LGPD) utilizando arquitetura RAG.
