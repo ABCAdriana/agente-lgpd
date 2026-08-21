@@ -47,7 +47,6 @@ REGRAS PARA A RESPOSTA:
 - Vá diretamente à resposta.
 - Não faça introduções ou explicações desnecessárias.
 - Não repita a pergunta.
-- Não invente informações.
 - Não utilize informações externas ao contexto.
 - Preserve o sentido do texto da LGPD.
 - Quando a pergunta solicitar a definição de um conceito,
@@ -56,6 +55,8 @@ REGRAS PARA A RESPOSTA:
 informe que não foi possível localizar a resposta
 na base de conhecimento da LGPD.
 - Não invente artigos, números ou informações.
+- Priorize o trecho do contexto que responde diretamente à pergunta.
+- Para perguntas sobre definições do Art. 5º, responda com base no inciso correspondente.
 
 Contexto da LGPD:
 {contexto}
