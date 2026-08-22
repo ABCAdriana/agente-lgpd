@@ -158,6 +158,42 @@ python app/main.py
 - Quem é o operador?
 - Quais são os direitos do titular?
 
+## 💬 Exemplos de perguntas e respostas
+
+Os exemplos abaixo foram obtidos durante o teste real do agente
+através da interface Gradio, com respostas geradas pelo Gemini
+utilizando o contexto recuperado pelo RAG.
+
+### Exemplo 1
+
+**Pergunta:**
+
+> O que é dado pessoal segundo a LGPD?
+
+**Resposta gerada pelo agente:**
+
+> I - dado pessoal: informação relacionada a pessoa natural identificada ou identificável.
+
+### Exemplo 2
+
+**Pergunta:**
+
+> O que é dado pessoal sensível?
+
+**Resposta gerada pelo agente:**
+
+> II - dado pessoal sensível: dado pessoal sobre origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou à vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural.
+
+### Exemplo 3
+
+**Pergunta:**
+
+> Quem é o controlador?
+
+**Resposta gerada pelo agente:**
+
+> VI - controlador: pessoa natural ou jurídica, de direito público ou privado, a quem competem as decisões referentes ao tratamento de dados pessoais.
+
 ## 🧪 Validação
 
 O projeto foi submetido a testes estruturais e a um teste real da
