@@ -68,7 +68,7 @@ Características da base:
 - Modelo: sentence-transformers/all-MiniLM-L6-v2;
 - Coleção ChromaDB: lgpd_conhecimento.
 
-O ChromaDB foi configurado para persistência durante o desenvolvimento.
+Durante o desenvolvimento, o ChromaDB foi mantido de forma persistente no Google Drive para preservar a base vetorial entre sessões do Google Colab.
 
 ## 🛠️ Tecnologias utilizadas
 
@@ -115,7 +115,7 @@ agente-lgpd/
 Clone o repositório:
 
 ```bash
-git clone SEU_REPOSITORIO_AQUI
+git clone https://github.com/ABCAdriana/agente-lgpd.git
 cd agente-lgpd
 ```
 
@@ -160,23 +160,49 @@ python app/main.py
 
 ## 🧪 Validação
 
-Durante o desenvolvimento, a recuperação do contexto foi validada
-sem realizar chamadas adicionais ao Gemini.
+O projeto foi submetido a testes estruturais e a um teste real da
+aplicação através do Gradio.
 
-Exemplo:
+### Teste real com Gemini
 
-> O que é dado pessoal segundo a LGPD?
+Foram realizadas três perguntas no Gradio e as respostas foram
+geradas pelo Gemini utilizando o contexto recuperado pelo RAG.
 
-O sistema conseguiu recuperar o contexto da base LGPD e preparar
-o prompt para o modelo.
+Resultados:
 
-Foram validados:
+- **O que é dado pessoal segundo a LGPD?** → ✅ resposta correta
+- **O que é dado pessoal sensível?** → ✅ resposta correta
+- **Quem é o controlador?** → ✅ resposta correta
+
+Esse teste confirmou o fluxo completo:
+
+```text
+Pergunta do usuário
+    ↓
+Gradio
+    ↓
+Agente
+    ↓
+Busca no ChromaDB
+    ↓
+Contexto da LGPD
+    ↓
+Prompt
+    ↓
+Gemini
+    ↓
+Resposta
+```
+
+Também foram validados durante o desenvolvimento:
 
 - ChromaDB;
 - Embeddings;
 - Busca semântica;
 - Recuperação de contexto;
-- Montagem do prompt.
+- Montagem do prompt;
+- Integração do agente com o Gemini;
+- Interface Gradio.
 
 ## 💬 Histórico
 
@@ -223,13 +249,27 @@ Infrastructure (OCI).
 
 A entrega deverá conter evidências da aplicação funcionando na nuvem.
 
-## ⚠️ Observação sobre o Gemini
+## 📌 Status do projeto
 
-Durante o desenvolvimento, os testes de geração foram limitados
-para preservar a quota disponível da API.
+O funcionamento principal do agente foi concluído e validado.
 
-A recuperação do contexto e a preparação do RAG foram validadas
-localmente antes do teste final com o Gemini.
+Concluído:
+
+- Processamento da LGPD;
+- Geração dos embeddings;
+- ChromaDB persistente;
+- Recuperação de contexto;
+- RAG;
+- Prompt;
+- Integração com Gemini;
+- Interface Gradio;
+- Teste real com três perguntas;
+- Versionamento no GitHub.
+
+Próxima etapa de entrega:
+
+- Deploy na Oracle Cloud Infrastructure (OCI);
+- Teste final da aplicação após o deploy.
 
 ## 👩‍💻 Projeto
 
