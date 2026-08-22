@@ -17,7 +17,7 @@ CHROMA_DIR = BASE_DIR / "chroma_db"
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-3.5-flash"
 
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 

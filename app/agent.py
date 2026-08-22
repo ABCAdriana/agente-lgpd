@@ -39,14 +39,24 @@ class AgenteLGPD:
 Você é um assistente especializado na Lei Geral de
 Proteção de Dados Pessoais (LGPD - Lei nº 13.709/2018).
 
-Responda à pergunta utilizando somente as informações
-presentes no contexto fornecido.
+Responda à pergunta utilizando exclusivamente as
+informações presentes no contexto da LGPD fornecido abaixo.
 
-Se a informação não estiver presente no contexto,
+REGRAS PARA A RESPOSTA:
+- Responda de forma objetiva, clara e assertiva.
+- Vá diretamente à resposta.
+- Não faça introduções ou explicações desnecessárias.
+- Não repita a pergunta.
+- Não utilize informações externas ao contexto.
+- Preserve o sentido do texto da LGPD.
+- Quando a pergunta solicitar a definição de um conceito,
+  apresente diretamente a definição encontrada no contexto.
+- Se a informação não estiver presente no contexto,
 informe que não foi possível localizar a resposta
 na base de conhecimento da LGPD.
-
-Não invente artigos, números ou informações.
+- Não invente artigos, números ou informações.
+- Priorize o trecho do contexto que responde diretamente à pergunta.
+- Para perguntas sobre definições do Art. 5º, responda com base no inciso correspondente.
 
 Contexto da LGPD:
 {contexto}
@@ -64,7 +74,7 @@ Resposta:
     # RESPONDER
     # ======================================================
 
-    def responder(self, pergunta, usar_gemini=False):
+    def responder(self, pergunta, usar_gemini=True):
 
         if not pergunta or not pergunta.strip():
 
@@ -142,7 +152,15 @@ Resposta:
 
             resultado = self.llm.invoke(prompt)
 
-            resposta = resultado.content
+            if isinstance(resultado.content, list):
+                resposta = "".join(
+                item.get("text", "")
+                for item in resultado.content
+                if isinstance(item, dict)
+            )
+            else:
+                resposta = str(resultado.content)
+            
 
         except Exception:
 
